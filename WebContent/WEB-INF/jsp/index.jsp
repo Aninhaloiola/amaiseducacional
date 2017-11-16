@@ -11,7 +11,7 @@
 <body>
 <%@ include file="/partials/header.jsp" %>
 <div class="container-fluid margin-6">
-	<div id="nmatricula" class="row light-6 padding-4">
+	<div id="nmatricula" class="row light-8 padding-4">
 		<div class="col-12 txt-dark">
 			<div style="text-align: center; font-size: 2em;">
 				Bem Vindo!
@@ -36,7 +36,7 @@
 	</div>
 </div>
 <div class="container-fluid margin-6">
-	<div class="row light-6 padding-4	">
+	<div class="row light-8 padding-4">
 		<div class="col-12 txt-dark">
 			<div style="text-align: center; font-size: 2em;">
 				Na palma da mão
@@ -51,7 +51,7 @@
 	<div id="amatricula" class="row dark-8">
 		<div class="col-12" style="text-align: center;">
 			<div class="btn-bar">
-				<a href="" class="btn btn-outline-info btn-lg" title="Acompanhar Matricula">
+				<a href="<%=request.getContextPath() %>/acompanhar-matricula" class="btn btn-outline-info btn-lg" title="Acompanhar Matricula">
 					<i class="fa fa-chevron-right"></i> Acompanhar Matricula
 				</a>
 			</div>
@@ -59,7 +59,7 @@
 	</div>
 </div>
 <div class="container-fluid margin-6">
-	<div class="row light-6 padding-4	">
+	<div class="row light-8 padding-4	">
 		<div class="col-12 txt-dark">
 			<div style="text-align: center; font-size: 2em;">
 				Escolas participantes
@@ -75,7 +75,7 @@
 		<div class="col-12" style="text-align: center;">
 			<div class="btn-bar">
 				<a href="" class="btn btn-outline-info btn-lg" title="Consultar Escola">
-					<i class="fa fa-chevron-right"></i> Consultar Escola
+					<i class="fa fa-search"></i> Consultar Escola
 				</a>
 			</div>
 		</div>

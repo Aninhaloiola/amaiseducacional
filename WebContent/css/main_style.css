@@ -42,6 +42,9 @@ a {
 .light-6 {
 	background: rgba(255,255,255, 0.6);
 }
+.light-8 {
+	background: rgba(255,255,255, 0.8);
+}
 
 /* TEXTO */
 .txt-light {
@@ -64,6 +67,30 @@ a {
 		display: block;
 		font-size: 1em;
 		color: #000;
+	}
+
+.main-nav {
+	position: relative;
+	margin-top: 1%;
+	padding: 1% auto;
+	list-style: none;
+	overflow: hidden;
+}
+	.main-nav > li {
+		display: inline-block;
+		margin-left: 1%;
+	}
+	.main-nav > li > a {
+		display: block;
+		padding: 10px 10px;
+		color: rgba(0,0,0, 0.8);
+		background: rgba(255,255,255, 0.9);
+		border: none;
+	}
+	.main-nav > li > a:hover {
+		transition: 0.3s linear all;
+		color: rgba(255,255,255, 1);
+		background: rgba(0,51,102,0.8);
 	}
 	
 /* RODAPÉ */

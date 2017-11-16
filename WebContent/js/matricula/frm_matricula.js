@@ -7,8 +7,26 @@ $(document).ready(function(){
 	$('#inpt-rg').mask('AAAAAAAAAAAAAA', {translation:{'A':{pattern:/[0-9]/, optional: true}}});
 	$('#inpt-dtNasc').mask('99/99/9999');
 	$('#inpt-fone').mask('AA AAAAAAAAA', {translation:{'A':{pattern:/[0-9]/, optional: true}}});
+	$('#inpt-celular').mask('AA AAAAAAAAA', {translation:{'A':{pattern:/[0-9]/, optional: true}}});
+	$('#inpt-cep').mask('99999999');
+	$('#inpt-uf').mask('AA', {translation:{A:{pattern:/[A-Za-z]/, optional: false}}});
 	
 //	$('.validado').slideUp();
+	
+	//Data de nascimento
+	$('#inpt-dtNasc').datepicker({
+		dateFormat: "dd/mm/yy",
+		showAnim: "fold",
+		changeYear: true,
+		changeMonth: true,
+		yearRange: "c-80:c",
+		maxDate: "-1Y",
+		monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
+		monthNamesShort: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
+		dayNames: ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
+		dayNamesShort: ["Dom","Seg","Ter","Qua","Qui","Sex","Sab"],
+		dayNamesMin: ["Dom","Seg","Ter","Qua","Qui","Sex","Sab"]
+	});
 	
 	//Validação de CPF
 	$('#inpt-cpf').focus();
@@ -40,10 +58,29 @@ $(document).ready(function(){
 		}
 		FrmMatr.alerta(false,'');
 	});
-	//Validação de nome
-	$('#inpt-nome').on('keyup', function(){
-		var nome = $(this).val();
+	//UF
+	$('#inpt-uf').on('keyup', function(){
+		$(this).val(Validar.toUpper($(this).val()));
+	});
+	//Remove caracteres especiais de input com a respectiva classe
+	$('input.naoespecial').on('keyup', function(){
+		var inptv = $(this).val();
+		$(this).val(Validar.removeEspec(inptv));
+	});
+	//Validar nome de usuário e senha
+	$('.validausu').on('keyup', function(){
+		var usuario = $(this).val();
+		$(this).val(Validar.validaUsuario(usuario));
+	});
+	//Valida senha
+	$('#inpt-senha').on('keyup', function(){
+		var senha = $(this).val();
+		if (senha.length < 6){
+			$('#inpt-senha-msg').html('Insira um senha com pelo menos 6 dígitos');
+			return false;
+		}
 		
+		$('#inpt-senha-msg').html('Senha legal <i class="fa fa-check"></i>');
 	});
 });
 

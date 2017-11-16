@@ -16,7 +16,7 @@
 	<div class="row light-6 padding-2">
 		<div class="col-12 txt-dark">
 			<div style="text-align: center; font-size: 2em;">
-				Nova Matricula
+				<i class="fa fa-address-book-o" aria-hidden="true"></i> Nova Matricula
 			</div>
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 					<div class="input-group-addon"><i class="fa fa-address-card" aria-hidden="true"></i></div>
 					<input required type="text" class="form-control" name="inpt-cpf" id="inpt-cpf" title="CPF" maxlength="11">
 				</div>
-				<small class="form-text badge badge-warning" id="inpt-cpf-msg">Somente números</small>
+				<small class="form-text badge badge-dark" id="inpt-cpf-msg">Somente números</small>
 			</div>
 			<div class="form-group col-sm-3">
 				<label class="badge badge-light" for="rg">RG*</label>
@@ -47,15 +47,14 @@
 					<div class="input-group-addon"><i class="fa fa-address-card-o" aria-hidden="true"></i></div>
 					<input required type="text" class="form-control" name="inpt-rg" id="inpt-rg" title="RG" maxlength="14">
 				</div>
-				<small class="form-text badge badge-warning" id="inpt-rg-msg">Somente números</small>
+				<small class="form-text badge badge-dark" id="inpt-rg-msg">Somente números</small>
 			</div>
 			<div class="form-group col-sm-3">
 		    	<label class="badge badge-light" for="form-grop">Data de Nascimento*</label>
 		    	<div class="input-group">
 		    		<div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div> 
-					<input required type="text" class="form-control" name="inpt-dtNasc" id="inpt-dtNasc" title="Insira Data" maxlength="10">
+					<input required type="text" class="form-control" name="inpt-dtNasc" id="inpt-dtNasc" title="Insira Data" placeholder=" / / " maxlength="10">
 				</div>
-				<small class="form-text badge badge-warning" id="inpt-dtNasc-msg">Somente números</small>		  
 		  	</div>
 			<div class="form-group col-sm-3">
 				<label class="badge badge-light" for="naturalidade">Naturalidade*</label>
@@ -76,9 +75,9 @@
 					<label class="badge badge-light" for="nome">Nome*</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
-						<input required type="text" class="form-control" name="inpt-nome" id="inpt-nome" title="Nome do aluno" placeholder="Nome do aluno" maxlength="60">
+						<input required type="text" class="form-control naoespecial" name="inpt-nome" id="inpt-nome" title="Nome do aluno" placeholder="Nome do aluno" maxlength="60">
 					</div>
-					<small class="help-text badge badge-warning">Insira o nome completo do Aluno</small> 
+					<small class="help-text badge badge-dark">Insira o nome completo do Aluno</small> 
 				</div>
 				<div class="form-group col-sm-2">
 					<label class="badge badge-light" for="sexo">Sexo*</label>
@@ -96,14 +95,14 @@
 					<label class="badge badge-light" for="nomeMae">Nome da Mãe*</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-female" aria-hidden="true"></i></div>
-						<input required type="text" class="form-control" name="inpt-nMae" id="inpt-nMae" title="Insira o nome da Mãe" placeholder="Nome da mãe" maxlength="50">
+						<input required type="text" class="form-control naoespecial" name="inpt-nMae" id="inpt-nMae" title="Insira o nome da Mãe" placeholder="Nome da mãe" maxlength="50">
 					</div>
 				</div>
 				<div class="form-group col-sm-3">
 					<label class="badge badge-light" for="nomePai">Nome do Pai*</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-male" aria-hidden="true"></i></div>
-						<input required type="text" class="form-control" name="inpt-nPai" id="inpt-nPai" title="Insira o nome do pai" placeholder="Nome do pai" maxlength="50">
+						<input required type="text" class="form-control naoespecial" name="inpt-nPai" id="inpt-nPai" title="Insira o nome do pai" placeholder="Nome do pai" maxlength="50">
 					</div> 
 				</div>
 			</div>
@@ -113,29 +112,29 @@
 					<label class="badge badge-light" for="cep">CEP*</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-street-view" aria-hidden="true"></i></div>
-						<input required type="text" class="form-control" name="inpt-cep" id="inpt-cep" title="Digite o cep" maxlength="10">
+						<input required type="text" class="form-control" name="inpt-cep" id="inpt-cep" title="Digite o cep" placeholder="00000000" maxlength="10">
 					</div>
-					<small class="form-text badge badge-warning" id="inpt-dtNasc-msg">Somente números</small>
+					<small class="form-text badge badge-dark" id="inpt-dtNasc-msg">Somente números</small>
 				</div>
 				<div class="form-group col-sm-2">
 					<label class="badge badge-light" for="uf">UF*</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-map" aria-hidden="true"></i></div>
-						<input required type="text" class="form-control" name="inpt-uf" id="inpt-uf" title="Insira a sigla da unidade da federação" maxlength="2">
+						<input required type="text" class="form-control naoespecial" name="inpt-uf" id="inpt-uf" title="Insira a sigla da unidade da federação" placeholder="UF" maxlength="2">
 					</div>
 				</div>
 				<div class="form-group col-sm-3">
 					<label class="badge badge-light" for="cidade">Cidade*</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-location-arrow" aria-hidden="true"></i></div>
-						<input required type="text" class="form-control" name="inpt-cidade" id="inpt-cidade" title="Nome da cidade" placeholder="Cidade" maxlength="44">
+						<input required type="text" class="form-control naoespecial" name="inpt-cidade" id="inpt-cidade" title="Nome da cidade" placeholder="Cidade" maxlength="44">
 					</div>
 				</div>
 				<div class="form-group col-sm-4">
 					<label class="badge badge-light" for="bairro">Bairro*</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-map-pin" aria-hidden="true"></i></div>
-						<input type="text" class="form-control" name="inpt-bairro" id="inpt-bairro" title="Bairro" placeholder="Bairro" maxlength="44">
+						<input type="text" class="form-control naoespecial" name="inpt-bairro" id="inpt-bairro" title="Bairro" placeholder="Bairro" maxlength="44">
 					</div>
 				</div>
 			</div>
@@ -144,12 +143,12 @@
 					<label class="badge badge-light" for="endereco">Endereço*</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
-						<input required type="text" class="form-control" name="inpt-end" id="inpt-end" title="Insira Endereço" placeholder="Endereço" maxlength="59">
+						<input required type="text" class="form-control naoespecial" name="inpt-end" id="inpt-end" title="Insira Endereço" placeholder="Endereço" maxlength="59">
 					</div> 
 				</div>
 				<div class="form-group col-sm-4">
 					<label class="badge badge-light" for="complemento">Complemento</label>
-					<input type="text" class="form-control" name="inpt-compl" id="inpt-compl" title="Complemento" placeholder="Complemento" maxlength="44"> 
+					<input type="text" class="form-control naoespecial" name="inpt-compl" id="inpt-compl" title="Complemento" placeholder="Complemento" maxlength="44"> 
 				</div>
 			</div>
 			<!-- Informações de contato -->
@@ -163,36 +162,51 @@
 				</div>
 				<div class="form-group col-sm-3">
 					<label class="badge badge-light" for="telefone">Telefone</label>
-					<input type="text" class="form-control" name="inpt-fone" id="inpt-fone" title="Número de telefone" placeholder="00 000000000" maxlength="11">
-					<p class="help-text badge badge-warning" id="inpt-fone-msg">Somente números</p> 
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></div>
+						<input type="text" class="form-control" name="inpt-fone" id="inpt-fone" title="Número de telefone" placeholder="00 000000000" maxlength="11">
+					</div>
+					<p class="help-text badge badge-dark" id="inpt-fone-msg">Somente números</p> 
 			   </div>
 				<div class="form-group col-sm-3">
 					<label class="badge badge-light" for="celular">Celular*</label>
-					<input required type="text" class="form-control" name="inpt-celular" id="inpt-celular" title="Celular" placeholder="00 000000000" maxlength="11">
-					<p class="help-text badge badge-warning" id="inpt-cel-msg">Somente números</p> 
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></div>
+						<input required type="text" class="form-control" name="inpt-celular" id="inpt-celular" title="Celular" placeholder="00 000000000" maxlength="11">
+					</div>
+					<p class="help-text badge badge-dark" id="inpt-cel-msg">Somente números</p> 
 			   </div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-sm-4">
 					<label class="badge badge-light" for="escolaridade">Escolaridade*</label>
-					<select required class="form-control" name="inpt-escl" id="inpt-escl" title="Nivel de escolaridade">
-				 		<option title="Selecione" value="0">Selecione</option>
-						 <option title="Fundamental" value="1">Fundamental</option>
-						 <option title="Médio" value="2">Médio</option>
-					</select>
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div>
+						<select required class="form-control custom-select" name="inpt-escl" id="inpt-escl" title="Nivel de escolaridade">
+					 		<option title="Selecione" value="0">Selecione</option>
+							 <option title="Fundamental" value="1">Fundamental</option>
+							 <option title="Médio" value="2">Médio</option>
+						</select>
+					</div>
 				</div>
 				<div class="form-group col-sm-2">
 					<label class="badge badge-light" for="anoEscolar">Ano Escolar</label>
-					<select required class="form-control" name="inpt-escl-ano" id="inpt-escl-ano" title="Ano Eescolar">
-				 		<option title="Selecione" value="0">Selecione</option>
-						<option title="Selecione" value="1">1º Ano</option>
-					</select>
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-line-chart" aria-hidden="true"></i></div>
+						<select required class="form-control custom-select" name="inpt-escl-ano" id="inpt-escl-ano" title="Ano Eescolar">
+					 		<option title="Selecione" value="0">Selecione</option>
+							<option title="Selecione" value="1">1º Ano</option>
+						</select>
+					</div>
 				</div>
 				<div class="form-group col-sm-6">
 					<label class="badge badge-light" for="instituicao">Instituição</label>
-					<select required class="form-control" name="inpt-inst" id="inpt-inst" title="Instituição que irá receber a matrícula">
-						<option title="Selecione" value="0">Selecione</option>
-					</select>
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-university" aria-hidden="true"></i></div>
+						<select required class="form-control custom-select" name="inpt-inst" id="inpt-inst" title="Instituição que irá receber a matrícula">
+							<option title="Selecione" value="0">Selecione</option>
+						</select>
+					</div>
 				</div>
 			</div>
 			<div class="form-row">
@@ -200,12 +214,16 @@
 					<label class="badge badge-light" for="usuario">Usuario</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
-						<input required type="text" class="form-control" name="inpt-usu" id="inpt-usu" title="Nome de usuário" maxlength="20">
+						<input required type="text" class="form-control validausu" name="inpt-usu" id="inpt-usu" title="Nome de usuário" maxlength="20">
 					</div>
 				</div>
 				<div class="form-group col-sm-4">
 					<label class="badge badge-light" for="senha">Senha</label>
-					<input required type="password" class="form-control" name="inpt-senha" id="inpt-senha" title="Insira uma senha" maxlength="12">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+						<input required type="password" class="form-control validausu" name="inpt-senha" id="inpt-senha" title="Insira uma senha" maxlength="12">
+					</div>
+					<p class="help-text badge badge-dark" id="inpt-senha-msg">Mínimo 6 caracteres entre letras e números</p>
 				</div>
 			</div>
 			<div class="form-row">
