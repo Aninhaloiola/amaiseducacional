@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+body {
+	font-size: 16px;
+	color: #000;
+	background-image: url('/maiseducacional/images/backgrounds/loginback.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+.header > a {
+	font-size: 1.2em;
+	color: rgba(0,0,0, 0.8);
+}
+
+.alert {
+	font-size: 0.6em;
+}
+
+.btn-bar {
+	text-align: right;
+}

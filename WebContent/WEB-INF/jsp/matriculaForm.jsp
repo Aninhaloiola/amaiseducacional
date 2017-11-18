@@ -183,30 +183,32 @@
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div>
 						<select required class="form-control custom-select" name="inpt-escl" id="inpt-escl" title="Nivel de escolaridade">
-					 		<option title="Selecione" value="0">Selecione</option>
-							 <option title="Fundamental" value="1">Fundamental</option>
-							 <option title="Médio" value="2">Médio</option>
+					 		<option title="Selecione" value="S">Selecione</option>
+							 <option title="Fundamental" value="F">Fundamental</option>
+							 <option title="Médio" value="M">Médio</option>
 						</select>
 					</div>
+					<p class="help-text badge badge-danger" id="inpt-escol-msg"></p>
 				</div>
 				<div class="form-group col-sm-2">
 					<label class="badge badge-light" for="anoEscolar">Ano Escolar</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-line-chart" aria-hidden="true"></i></div>
-						<select required class="form-control custom-select" name="inpt-escl-ano" id="inpt-escl-ano" title="Ano Eescolar">
+						<select required disabled class="form-control custom-select" name="inpt-escl-ano" id="inpt-escl-ano" title="Ano Eescolar">
 					 		<option title="Selecione" value="0">Selecione</option>
-							<option title="Selecione" value="1">1º Ano</option>
 						</select>
 					</div>
+					<p class="help-text badge badge-danger" id="inpt-escl-ano-msg"></p>
 				</div>
 				<div class="form-group col-sm-6">
 					<label class="badge badge-light" for="instituicao">Instituição</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-university" aria-hidden="true"></i></div>
-						<select required class="form-control custom-select" name="inpt-inst" id="inpt-inst" title="Instituição que irá receber a matrícula">
+						<select required disabled class="form-control custom-select" name="inpt-inst" id="inpt-inst" title="Instituição que irá receber a matrícula">
 							<option title="Selecione" value="0">Selecione</option>
 						</select>
 					</div>
+					<p class="help-text badge badge-danger" id="inpt-escl-inst-msg"></p>
 				</div>
 			</div>
 			<div class="form-row">
@@ -225,14 +227,26 @@
 					</div>
 					<p class="help-text badge badge-dark" id="inpt-senha-msg">Mínimo 6 caracteres entre letras e números</p>
 				</div>
+				<div class="form-group col-sm-4">
+					<label class="badge badge-light" for="confirmarSenha">Confirmar Senha</label>
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+						<input required type="password" class="form-control validausu" name="inpt-senha-confirm" id="inpt-senha-confirm" title="Confirmar senha" maxlength="12">
+					</div>
+					<p class="help-text badge badge-dark" id="inpt-senha-confirm-msg"></p>
+				</div>
 			</div>
 			<div class="form-row">
 				<div class="col-12">
-					<button type="submit" id="btn-submit" class="btn btn-success" title="Enviar">Enviar</button>
+					<button type="submit" id="btn-submit" class="btn btn-success" title="Enviar">
+						<i class="fa fa-paper-plane-o" aria-hidden="true"></i> Enviar
+					</button>
 				</div>
 			</div>
 		</div>
 	</form>
+	<br/>
 </div>
+<%@ include file="/partials/footer.jsp" %>
 </body>
 </html>

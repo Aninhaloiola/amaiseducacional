@@ -5,17 +5,29 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Trabalha conex„o com o banco de dados
+ * Trabalha conexao com o banco de dados
  */
 public class Conexao {
 
 	/**
-	 * Armazena conex„o com o banco
+	 * Armazena conexao com o banco
 	 */
 	private Connection conn = null;
+	/**
+	 * Base de dados
+	 */
+	private String base = "projeto";
+	/**
+	 * Usu√°rio
+	 */
+	private String username = "root";
+	/**
+	 * Senha
+	 */
+	private String password = "";
 
 	/**
-	 * Cria uma conex„o com o banco de dados
+	 * Cria uma conexao com o banco de dados
 	 */
 	protected Connection getConexao() {
 		try {
@@ -24,7 +36,7 @@ public class Conexao {
 			}
 
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String config = "jdbc:mysql://localhost:3306/projeto?user=root&pass=";
+			String config = "jdbc:mysql://localhost:3306/"+this.base+"?user="+this.username+"&pass="+this.password;
 			this.conn = DriverManager.getConnection(config);
 
 		} catch (Exception ex) {
@@ -35,7 +47,7 @@ public class Conexao {
 	}
 
 	/**
-	 * Fecha a conex„o aberta com o banco
+	 * Fecha a conex√£o aberta com o banco
 	 */
 	protected void fechaConexao() {
 		try {

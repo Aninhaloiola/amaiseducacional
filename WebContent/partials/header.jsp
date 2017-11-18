@@ -27,7 +27,7 @@
 					</a>
 					</c:if>
 				</li><li>
-					<c:if test="${pagina != 'acompanhar'}">
+					<c:if test="${pagina!='acompanhar' && pagina!='login'}">
 					<a href="#amatricula" title="Acompanhar Matricula">
 						<i class="fa fa-chevron-left"></i> Acompanhar Matricula
 					</a>

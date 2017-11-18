@@ -11,7 +11,7 @@ $(document).ready(function(){
 	$('#inpt-cep').mask('99999999');
 	$('#inpt-uf').mask('AA', {translation:{A:{pattern:/[A-Za-z]/, optional: false}}});
 	
-//	$('.validado').slideUp();
+	$('.validado').hide();
 	
 	//Data de nascimento
 	$('#inpt-dtNasc').datepicker({
@@ -79,8 +79,101 @@ $(document).ready(function(){
 			$('#inpt-senha-msg').html('Insira um senha com pelo menos 6 dígitos');
 			return false;
 		}
-		
 		$('#inpt-senha-msg').html('Senha legal <i class="fa fa-check"></i>');
+	});
+	$('#inpt-senha-confirm').on('keyup', function(){
+		var sconfirm = $(this).val();
+		var senha = $('#inpt-senha').val();
+		if (sconfirm!=senha){
+			$('#btn-submit').attr('disabled','disabled');
+			$('#inpt-senha-confirm-msg').html('Senha não confere!');
+			return false;
+		}
+		$('#btn-submit').removeAttr('disabled');
+		$('#inpt-senha-confirm-msg').html('Senha confere <i class="fa fa-check" aria-hidden="true"></i>');
+	});
+	//Carrega o ano escolar de acordo com o valor de escolaridade
+	$('#inpt-escl').on('change', function(){
+		$('#inpt-inst').attr('disabled','disabled'); //Desabilita combo de escolas
+		$('#inpt-inst').val('0');
+		
+		var comboAnoEscola = $('#inpt-escl-ano');
+		$(comboAnoEscola).val('0');
+		
+		var esco = $(this).val();
+			esco = esco.toUpperCase();
+		if (esco=='S'){
+			$('#inpt-escol-msg').slideDown(300).html('Selecione o nivel de escolaridade, obrigado!');
+			$(comboAnoEscola).attr('disabled','disabled');
+			return false;
+		}
+		$('#inpt-escol-msg').hide(200).html('');
+		
+		$(comboAnoEscola).empty();
+		$(comboAnoEscola).append($('<option title="Selecione" value="0">Selecione</option>'))
+		var anos = (esco=='F') ? 10 : 4;
+		for (var i=1; i < anos; i++){
+			var option = document.createElement('option');
+				option.setAttribute('title',i+'º Ano');
+				option.setAttribute('value',i);
+				option.appendChild(document.createTextNode(i+'º Ano'));
+			$(comboAnoEscola).append(option);
+		}
+		$(comboAnoEscola).removeAttr('disabled');
+	});
+	//Carrega a lista de escolas compatíveis com a seleção
+	$('#inpt-escl-ano').on('change', function(){
+		var MSG_FALHA = 'Falha ao carregar escolas, atualize a página e tente novamente.';
+		var MSG_VAZIO = 'Não há escolas disponiveis para esse nivel e ano escolar.';
+		$('#inpt-inst').attr('disabled','disabled');
+		$('#inpt-inst').val('0');
+		
+		$('#inpt-escl-inst-msg').html('Carregando, aguarde...');
+		
+		var nivel = $('#inpt-escl').val();
+			nivel = nivel.toUpperCase();
+		if (nivel=='S') {
+			$('#inpt-escol-msg').slideDown(300).html('Selecione o nivel de escolaridade, obrigado!');
+			return false;
+		}
+		var serie = parseInt($(this).val());
+		if (serie < 1) {
+			$('#inpt-escl-ano-msg').show(250).html('Selecione um Ano Escolar');
+			return false;
+		}
+		$('#inpt-escl-ano-msg').hide(250).html('');
+		
+		var urlLista = '/maiseducacional/escola?acao=lista&tpres=json&nivel='+nivel+'&serie='+serie;
+		$.ajax({
+			url: urlLista,
+			method: 'GET'
+		}).done(function(res){
+			if (!res.hasOwnProperty('result')){
+				$('#inpt-escl-inst-msg').html(MSG_FALHA);
+				return false;
+			}
+			var lista = res.result;
+			
+			if(lista.length < 1){
+				$('#inpt-escl-inst-msg').html(MSG_VAZIO);
+				return false;
+			}
+			
+			$('#inpt-inst').empty();
+			$('#inpt-inst').append($('<option title="Selecione" value="0">Selecione</option>'));
+			$.each(lista, function(k,obj){
+				var option = document.createElement('option');
+					option.setAttribute('title',obj.nome);
+					option.setAttribute('value',obj.idInst);
+					option.appendChild(document.createTextNode(obj.nome));
+				$('#inpt-inst').append(option);
+			});
+			$('#inpt-inst').removeAttr('disabled');
+			$('#inpt-escl-inst-msg').html('');
+		}).fail(function(err){
+			$('#inpt-inst').attr('disabled','disabled');
+			$('#inpt-escl-inst-msg').html('Falha, atualize a página e tente novamente, obrigado!');
+		});
 	});
 });
 

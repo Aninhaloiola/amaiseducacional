@@ -17,6 +17,12 @@ import br.com.maiseducacional.model.MatriculaModel;
 public class MatriculaDao extends Conexao {
 
 	/**
+	 * Obtém todos os dados de Matrícula para uma pessoa específica
+	 * 
+	 */
+	
+	
+	/**
 	 * Insere um novo registro em Aluno
 	 */
 	public int inserirMatricula(MatriculaModel matricula) {

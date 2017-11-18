@@ -79,6 +79,43 @@ public class PessoaDao extends Conexao {
 	}
 	
 	/**
+	 * Obtém informações sobre uma pessoa a partir do ID
+	 * @param int idPessoa
+	 */
+	public PessoaModel getPessoaById(int idPessoa) {
+		PessoaModel md = new PessoaModel();
+		try {
+			String sql = "SELECT a.idPessoa, a.nome, a.rg, a.cpf, a.sexo, a.naturalidade, a.dataNasc, a.cep, a.uf, a.cidade, a.bairro, a.endereco, a.complemento, a.usuario	FROM pessoa a WHERE a.idPessoa = ?";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, idPessoa);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				md.setIdPessoa(rs.getInt("idPessoa"));
+				md.setNome(rs.getString("nome"));
+				md.setRg(rs.getString("rg"));
+				md.setCpf(rs.getString("cpf"));
+				md.setSexo(rs.getString("sexo"));
+				md.setNaturalidade(rs.getString("naturalidade"));
+				md.setDataNasc(rs.getDate("dataNasc"));
+				md.setCep(rs.getString("cep"));
+				md.setUf(rs.getString("uf"));
+				md.setCidade(rs.getString("cidade"));
+				md.setBairro(rs.getString("bairro"));
+				md.setEndereco(rs.getString("endereco"));
+				md.setComplemento(rs.getString("complemento"));
+				md.setUsuario(rs.getString("usuario"));
+			}
+			rs.close();
+			ps.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return md;
+	}
+	
+	/**
 	 * Inseri um novo registo
 	 * 
 	 * @param PessoaModel pessoa

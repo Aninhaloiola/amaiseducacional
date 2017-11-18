@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+body {
+	font-size: 16px;
+	color: #000;
+}
+
+.btn-top {
+	text-align: right;
+}

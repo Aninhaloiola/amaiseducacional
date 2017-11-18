@@ -1,6 +1,7 @@
 package br.com.maiseducacional;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,47 +10,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.maiseducacional.view.MatriculaView;
+import br.com.maiseducacional.lib.VerLogin;
+import br.com.maiseducacional.view.AcompanhaView;
 
 /**
- * Servlet implementation class Matricula
+ * Servlet implementation class Acompanhamento
  */
-@WebServlet("/matricula")
-public class Matricula extends HttpServlet {
+@WebServlet("/acompanhamento")
+public class Acompanhamento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-	private final String pagina = "matricula";
-	
-    public Matricula() {
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Acompanhamento() {
         super();
     }
-    
+
 	/**
-	 * Carrega o formulario para matricula
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagina", this.pagina);
 		
-		request.setAttribute("aviso", "Preencha todos os campos corretamente, obrigado!");
+		VerLogin loginGer = new VerLogin(request,response);
+		loginGer.usuLogado();
 		
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/matriculaForm.jsp");
+		AcompanhaView av = new AcompanhaView();
+		Map<String,Object> matricula = av.getMatriculaDadosByUsu(loginGer.getUsuId());
+		
+		request.setAttribute("pessoa", matricula.get("pessoa"));
+		
+		request.setAttribute("pagina", "index");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/acompanha/indexAcompanha.jsp");
 						  rd.forward(request, response);
 	}
 
 	/**
-	 * Recebe dados relativos matricula
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagina", this.pagina);
 		
-		MatriculaView matv = new MatriculaView();
-		String resultado = matv.novaMatricula(request, response);
-		
-		request.setAttribute("aviso", resultado);
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/matriculaForm.jsp");
-						  rd.forward(request, response);
 	}
 
 }

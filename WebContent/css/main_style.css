@@ -11,8 +11,19 @@ a {
 	a:hover {
 		text-decoration: none;
 	}
+	
+ul li {
+	list-style: none;
+}
+
+button {
+	cursor: pointer;
+}
 
 /* ESPAÇAMENTO */
+.margin-top-2 {
+	margin-top: 2%;
+}
 .margin-2 {
 	margin: 2% auto;
 }

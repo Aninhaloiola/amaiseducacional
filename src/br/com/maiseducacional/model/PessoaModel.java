@@ -112,6 +112,8 @@ public class PessoaModel {
 	}
 
 	public Date getDataNasc() {
+		
+		
 		return dataNasc;
 	}
 
