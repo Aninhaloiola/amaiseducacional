@@ -1,5 +1,6 @@
 package br.com.maiseducacional.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -112,9 +113,12 @@ public class PessoaModel {
 	}
 
 	public Date getDataNasc() {
-		
-		
 		return dataNasc;
+	}
+	
+	public String getDataNascStr() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(dataNasc);
 	}
 
 	public void setDataNasc(Date dataNasc) {

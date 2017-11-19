@@ -39,6 +39,10 @@ public class Acompanhamento extends HttpServlet {
 		Map<String,Object> matricula = av.getMatriculaDadosByUsu(loginGer.getUsuId());
 		
 		request.setAttribute("pessoa", matricula.get("pessoa"));
+		request.setAttribute("contato", matricula.get("contato"));
+		request.setAttribute("aluno", matricula.get("aluno"));
+		request.setAttribute("matricula", matricula.get("matricula"));
+		request.setAttribute("insti", matricula.get("insti"));
 		
 		request.setAttribute("pagina", "index");
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/acompanha/indexAcompanha.jsp");

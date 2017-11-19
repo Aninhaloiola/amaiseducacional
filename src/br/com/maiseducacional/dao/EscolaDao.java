@@ -15,6 +15,40 @@ import br.com.maiseducacional.model.EscolaModel;
 public class EscolaDao extends Conexao {
 
 	/**
+	 * Obtém uma instituição a partir da respectiva ID
+	 */
+	public EscolaModel getEscolaById(int ide) {
+		EscolaModel em = new EscolaModel();
+		try {
+			String sql = "SELECT a.idInst, a.nome, a.cnpj, "
+					   + "CASE " 
+					   + "WHEN a.nivel='F' THEN 'Ensino Fundamental'" 
+					   + "WHEN a.nivel='M' THEN 'Ensino Médio'" 
+					   + "ELSE 'Não identificado'" 
+					   + "END as 'nivel', "
+					   + " a.nivel, a.cep, a.uf, a.cidade, a.endereco, a.series "
+					   + "FROM instituicao a "
+					   + "WHERE a.idInst = ?";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, ide);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				em.setIdInst(rs.getInt("idInst"));
+				em.setNome(rs.getString("nome"));
+				em.setCnpj(rs.getString("cnpj"));
+				em.setNivel(rs.getString("nivel"));
+			}
+			rs.close();
+			ps.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return em;
+	}
+	
+	/**
 	 * Obtém lista de escolas de acordo com o nivel e serie
 	 * @param String nivel
 	 * @param int serie

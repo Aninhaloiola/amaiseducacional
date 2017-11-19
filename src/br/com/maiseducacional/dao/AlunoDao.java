@@ -10,10 +10,41 @@ import br.com.maiseducacional.db.Conexao;
 import br.com.maiseducacional.model.AlunoModel;
 
 /**
- * A��es relativas a entidade Aluno
+ * Ações relativas a entidade Aluno
  */
 public class AlunoDao extends Conexao {
 
+	/**
+	 * Obtém dados de um aluno a partir do ID de pessoa 
+	 */
+	public AlunoModel getAlunoByPessoaId(int idp) {
+		AlunoModel am = new AlunoModel();
+		try {
+			String sql = "SELECT a.idAluno, a.nomePai, a.nomeMae, "
+					   + "CASE WHEN a.escolaridade='M' THEN 'Ensino Médio' "
+					   + "WHEN a.escolaridade='F' THEN 'Ensino Fundamental' " 
+					   + "ELSE 'Não identificada' END as 'escolaridade', a.anoEscolar "
+					   + " FROM aluno a WHERE a.pessoa_id = ?";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, idp);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				am.setIdAluno(rs.getInt("idAluno"));
+				am.setNomePai(rs.getString("nomePai"));
+				am.setNomeMae(rs.getString("nomeMae"));
+				am.setEscolaridade(rs.getString("escolaridade"));
+				am.setAnoEscolar(rs.getInt("anoEscolar"));
+			}
+			rs.close();
+			ps.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return am;
+	}
+	
 	/**
 	 * Insere um novo registro em Aluno
 	 */

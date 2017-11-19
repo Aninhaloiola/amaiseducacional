@@ -17,9 +17,31 @@ import br.com.maiseducacional.model.MatriculaModel;
 public class MatriculaDao extends Conexao {
 
 	/**
-	 * Obtém todos os dados de Matrícula para uma pessoa específica
+	 * Obtém todos os dados de Matrícula para um Aluno específico
 	 * 
 	 */
+	public MatriculaModel getMatriculaByAlunoId(int ida) {
+		MatriculaModel md = new MatriculaModel();
+		try {
+			String sql = "SELECT a.situacao,a.dataMatri,a.dataValida,a.idInstituicao FROM matricula a WHERE a.aluno_idaluno = ?";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, ida);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				md.setSituacao(rs.getString("situacao"));
+				md.setDtMat(rs.getDate("dataMatri"));
+				md.setDtValida(rs.getDate("datavalida"));
+				md.setIdInstituicao(rs.getInt("idInstituicao"));
+			}
+			rs.close();
+			ps.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return md;
+	}
 	
 	
 	/**

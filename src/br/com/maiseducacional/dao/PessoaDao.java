@@ -21,30 +21,23 @@ public class PessoaDao extends Conexao {
 	 * Verifica se o CPF já existe
 	 * @parma String cpf
 	 */
-	public int existeCpf(String cpf) {
+	public int existeCpf(String cpf){
 		int pessoaID = 0;
-		
 		try {
 			String sql = "SELECT a.idPessoa FROM pessoa a WHERE a.cpf = ?";
-			
 			Connection conn = this.getConexao();
-			
 			PreparedStatement ps = conn.prepareStatement(sql);
 							  ps.clearParameters();
 							  ps.setString(1, cpf);
-							  
 			ResultSet rs = ps.executeQuery();
-			
 			while(rs.next()) {
 				pessoaID = rs.getInt("idPessoa");
 			}
-			
 			rs.close();
 			ps.close();
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		
 		return pessoaID;
 	}
 	
@@ -56,25 +49,19 @@ public class PessoaDao extends Conexao {
 		int pessoaID = 0;
 		try {
 			String sql = "SELECT a.idPessoa FROM pessoa a WHERE a.rg = ?";
-			
 			Connection conn = this.getConexao();
-			
 			PreparedStatement ps = conn.prepareStatement(sql);
 							  ps.clearParameters();
 							  ps.setString(1, rg);
-							  
 			ResultSet rs = ps.executeQuery();
-			
 			while(rs.next()) {
 				pessoaID = rs.getInt("idPessoa");
 			}
-			
 			rs.close();
 			ps.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
 		return pessoaID;
 	}
 	
@@ -85,7 +72,14 @@ public class PessoaDao extends Conexao {
 	public PessoaModel getPessoaById(int idPessoa) {
 		PessoaModel md = new PessoaModel();
 		try {
-			String sql = "SELECT a.idPessoa, a.nome, a.rg, a.cpf, a.sexo, a.naturalidade, a.dataNasc, a.cep, a.uf, a.cidade, a.bairro, a.endereco, a.complemento, a.usuario	FROM pessoa a WHERE a.idPessoa = ?";
+			String sql = "SELECT a.idPessoa, a.nome, a.rg, a.cpf, "
+					+ "CASE " 
+					+"WHEN a.sexo='M' THEN 'Masculino' "
+					+"WHEN a.sexo='F' THEN 'Feminino' " 
+					+"ELSE 'Outros' " 
+					+"END as 'sexo', "
+					+"CASE WHEN a.naturalidade=1 THEN 'Brasileiro' ELSE 'Estrangeiro' END as 'naturalidade', "
+					+" a.dataNasc, a.cep, a.uf, a.cidade, a.bairro, a.endereco, a.complemento, a.usuario	FROM pessoa a WHERE a.idPessoa = ?";
 			Connection conn = this.getConexao();
 			PreparedStatement ps = conn.prepareStatement(sql);
 							  ps.clearParameters();
@@ -176,6 +170,31 @@ public class PessoaDao extends Conexao {
 		}
 		//Retorna o id
 		return idPessoa;
+	}
+	
+	/**
+	 * Obtém informações de contato de uma pessoa específica
+	 */
+	public PcontatoModel getPcontatoByPessoaId(int idp) {
+		PcontatoModel pcm = new PcontatoModel();
+		try {
+			String sql = "SELECT a.telefone, a.celular,	a.email FROM pcontato a WHERE	a.idPessoa = ?";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, idp);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				pcm.setTelefone(rs.getString("telefone"));
+				pcm.setCelular(rs.getString("celular"));
+				pcm.setEmail(rs.getString("email"));
+			}
+			ps.close();
+			rs.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return pcm;
 	}
 	
 	/**

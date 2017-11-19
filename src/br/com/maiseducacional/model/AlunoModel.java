@@ -1,7 +1,7 @@
 package br.com.maiseducacional.model;
 
 /**
- * Model entidade Aluno 
+ * Model entidade Aluno
  */
 public class AlunoModel {
 
@@ -9,7 +9,16 @@ public class AlunoModel {
 	private String nomePai = "";
 	private String nomeMae = "";
 	private String escolaridade = "";
+	private int anoEscolar = 0;
 	private int pessoaId = 0;
+
+	public int getAnoEscolar() {
+		return anoEscolar;
+	}
+
+	public void setAnoEscolar(int anoEscolar) {
+		this.anoEscolar = anoEscolar;
+	}
 
 	public int getIdAluno() {
 		return idAluno;
