@@ -1,10 +1,10 @@
 package br.com.maiseducacional.model;
 
-/**
- * Model entidade Funcionario
- */
-public class Funcionario {
+import java.io.Serializable;
 
+public class Funcionario implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int idFunci = 0;
 	private String funcao = "";
 	private int pessoaId = 0;

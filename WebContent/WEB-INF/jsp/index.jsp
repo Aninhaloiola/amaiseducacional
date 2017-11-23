@@ -51,7 +51,7 @@
 	<div class="row dark-8">
 		<div class="col-12" style="text-align: center;">
 			<div class="btn-bar">
-				<a href="<%=request.getContextPath() %>/login" class="btn btn-outline-info btn-lg" title="Acompanhar Matricula">
+				<a href="<%=request.getContextPath() %>/login?tipo=acompanhar" class="btn btn-outline-info btn-lg" title="Acompanhar Matricula">
 					<i class="fa fa-chevron-right"></i> Acompanhar Matricula
 				</a>
 			</div>

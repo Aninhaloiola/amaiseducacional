@@ -15,6 +15,8 @@ import br.com.maiseducacional.view.AcompanhaView;
 
 /**
  * Servlet implementation class Acompanhamento
+ * A partir daqui, podemos ver um belo exemplo de quando conseguimos implementar uma arquitetura descente num projeto
+ * se não gostar ou achar "meia boca" se mata!
  */
 @WebServlet("/acompanhamento")
 public class Acompanhamento extends HttpServlet {
@@ -44,7 +46,7 @@ public class Acompanhamento extends HttpServlet {
 		request.setAttribute("matricula", matricula.get("matricula"));
 		request.setAttribute("insti", matricula.get("insti"));
 		
-		request.setAttribute("pagina", "index");
+		request.setAttribute("acao", "acompanhar");
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/acompanha/indexAcompanha.jsp");
 						  rd.forward(request, response);
 	}

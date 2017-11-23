@@ -14,11 +14,12 @@ public class LoginView {
 	 * Verifica se um usuário e senha existe e retorna sua Id e nome
 	 * @param String usu
 	 * @param String senha
+	 * @param String matricula quando for funcionário
 	 */
-	public int verificarLogin(String usu, String senha){
+	public int verificarLogin(String usu, String senha, String matricula){
 		try {
 			LoginDao ed = new LoginDao();
-			this.loginMd = ed.verificaUsuPass(usu, senha);
+			this.loginMd = ed.verificaUsuPass(usu, senha, matricula);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}

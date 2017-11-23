@@ -1,8 +1,14 @@
 package br.com.maiseducacional.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MatriculaModel {
+public class MatriculaModel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private PessoaModel pessoa = new PessoaModel();
+	private AlunoModel am = new AlunoModel();
 
 	private int idMatricula = 0;
 	private String situacao = "";
@@ -12,6 +18,22 @@ public class MatriculaModel {
 	private String idFunciNulo = null;
 	private int idAluno = 0;
 	private int idInstituicao = 0;
+
+	public PessoaModel getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaModel pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public AlunoModel getAm() {
+		return am;
+	}
+
+	public void setAm(AlunoModel am) {
+		this.am = am;
+	}
 
 	public int getIdInstituicao() {
 		return idInstituicao;

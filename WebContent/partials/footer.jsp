@@ -10,13 +10,10 @@
 			<div class="col-12 col-sm-2">
 				<ul>
 					<li><a href="<%=request.getContextPath()%>/inicio" title="Inicio">Inicio</a></li>
-					<li><a href="<%=request.getContextPath()%>/ajuda" title="Ajuda">Ajuda</a></li>
+					<li><a href="<%=request.getContextPath()%>/login?tipo=validar" title="Validador">Validador</a></li>
 				</ul>
 			</div>
 			<div class="col-12 col-sm-2">
-				<ul>
-					<li><a href="<%=request.getContextPath()%>/contato" title="Contato">Contato</a></li>
-				</ul>
 			</div>
 			<div class="col-12 col-sm-4">
 				Copyright 2017

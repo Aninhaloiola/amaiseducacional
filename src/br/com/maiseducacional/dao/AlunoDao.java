@@ -14,6 +14,32 @@ import br.com.maiseducacional.model.AlunoModel;
  */
 public class AlunoDao extends Conexao {
 
+	public AlunoModel getAlunoByMatricula(int mtr) {
+		AlunoModel am = new AlunoModel();
+		try {
+			String sql = "SELECT a.idAluno,	a.pessoa_id, c.nome, a.nomePai, a.nomeMae, a.escolaridade, a.anoEscolar "
+						+" FROM aluno" 
+						+" INNER JOIN matricula b ON(b.aluno_idaluno=a.idAluno)" 
+						+" INNER JOIN pessoa c ON(c.idPessoa=b.aluno_idaluno)"
+						+" WHERE"
+						+" b.idMatricula = ?";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, mtr);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				am.setIdAluno(rs.getInt(""));
+				
+			}
+			rs.close();
+			ps.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return am;
+	}
+	
 	/**
 	 * Obtém dados de um aluno a partir do ID de pessoa 
 	 */
@@ -53,26 +79,19 @@ public class AlunoDao extends Conexao {
 		int ttAluno = 0;
 		
 		try {
-			//SQL de insert
 			String sql = "INSERT INTO aluno (nomePai, nomeMae, escolaridade, pessoa_id) VALUES (?,?,?,?)";
 			
-			//Obt�m conex�o
 			Connection con = this.getConexao();
-					   
-			//Prepara sql para receber os par�metros
 			PreparedStatement sth = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			//Reseta os par�metros para receber novos valores
 			sth.clearParameters();
-			//Atribui os valores aos par�metros da sql				  
+				  
 			sth.setString(1, aluno.getNomePai());
 			sth.setString(2, aluno.getNomeMae());
 			sth.setString(3, aluno.getEscolaridade());
 			sth.setInt(4, aluno.getPessoaId());
 			
-			//Executa o insert e retorna o total de linhas inseridas no banco
 			ttAluno = sth.executeUpdate();
-			
-			//Obt�m a chave prim�ria (ID) gerada pelo banco para o aluno inserido
+
 			ResultSet rs = sth.getGeneratedKeys();
 			while(rs.next()) {
 				idAluno = rs.getInt(1);
@@ -85,7 +104,6 @@ public class AlunoDao extends Conexao {
 			this.fechaConexao();
 		}
 		
-		//Retorna o id do registro inserido em aluno
 		return idAluno;
 	}
 	

@@ -44,12 +44,10 @@ public class Escola extends HttpServlet {
 		
 		EscolaView ev = new EscolaView();
 		
-		//Identifica a ação
 		if ("lista".equals(acao)) {
 			List<EscolaModel> lsescm = ev.listarEscolas(params.getStrParam("nivel"), params.getIntParam("serie"));
 		}
 		
-		//Se retorno do tipo json
 		if ("json".equals(retorno)) {
 			this.jsonRequests(ev.getEscolasJson(), response);
 		} else {

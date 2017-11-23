@@ -1,10 +1,10 @@
 package br.com.maiseducacional.model;
 
-/**
- * Model entidade Aluno
- */
-public class AlunoModel {
+import java.io.Serializable;
 
+public class AlunoModel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int idAluno = 0;
 	private String nomePai = "";
 	private String nomeMae = "";

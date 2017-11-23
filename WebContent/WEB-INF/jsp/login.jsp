@@ -32,7 +32,8 @@
 						</c:if>
 					</h4>
 			    	<p class="card-text">
-			    		<form method="post" action="/maiseducacional/login" enctype="application/x-www-form-urlencoded">
+			    		<form id="frmLogin" method="post" action="/maiseducacional/login" enctype="application/x-www-form-urlencoded">
+			    			<input type="hidden" name="tipo" value="${tipo}">
 							<div class="form-row">
 								<div class="form-group col-12">
 									<label class="badge badge-light" for="usuario">Usuario</label>
@@ -40,6 +41,7 @@
 										<div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
 										<input required type="text" class="form-control validausu" name="inpt-usu" id="inpt-usu" title="Nome de usuário" placeholder="Nome de usuário" maxlength="20">
 									</div>
+									<p class="help-text badge badge-dark" id="inpt-usu-msg"></p>
 								</div>
 							</div>
 							<div class="form-row">
@@ -47,14 +49,25 @@
 									<label class="badge badge-light" for="senha">Senha</label>
 									<div class="input-group">
 										<div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
-										<input required type="password" class="form-control validausu" name="inpt-senha" id="inpt-senha" title="Senha" maxlength="12">
+										<input disabled required type="password" class="form-control validausu" name="inpt-senha" id="inpt-senha" title="Senha" maxlength="12">
 									</div>
 									<p class="help-text badge badge-dark" id="inpt-senha-msg">Mínimo 6 caracteres entre letras e números</p>
 								</div>
 							</div>
+							<c:if test="${tipo eq 'validar'}">
+							<div class="form-row">
+								<div class="form-group col-12">
+									<label class="badge badge-light" for="matricula">Matricula</label>
+									<div class="input-group">
+										<div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+										<input disabled required type="text" class="form-control validausu" name="inpt-matr" id="inpt-matr" title="Matricula" maxlength="12">
+									</div>
+								</div>
+							</div>
+							</c:if>
 							<div class="form-row">
 								<div class="col-12 btn-bar">
-									<button type="submit" id="btn-submit" class="btn btn-primary" title="Log in">
+									<button disabled type="submit" id="btn-submit" class="btn btn-primary" title="Log in">
 										<i class="fa fa-lock" aria-hidden="true"></i> Log in
 									</button>
 								</div>

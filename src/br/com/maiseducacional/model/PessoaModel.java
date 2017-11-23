@@ -1,13 +1,12 @@
 package br.com.maiseducacional.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Model entidade Pessoa
- */
-public class PessoaModel {
-
+public class PessoaModel implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private int idPessoa = 0;
 	private String nome = "";
 	private String rg = "";

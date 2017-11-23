@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import com.mysql.jdbc.Statement;
 
@@ -12,10 +13,44 @@ import br.com.maiseducacional.db.Conexao;
 import br.com.maiseducacional.model.MatriculaModel;
 
 /**
- * A��es relativas a entidade Aluno
+ * Acoes relativas a entidade Aluno
  */
 public class MatriculaDao extends Conexao {
 
+	public ArrayList<MatriculaModel> getMatriculaPendenteListaByUsu(int idUsu) {
+		ArrayList<MatriculaModel> mdls = new ArrayList<MatriculaModel>();
+		try {
+			String sql = "SELECT d.idPessoa,a.idMatricula,d.nome,a.dataMatri,c.anoEscolar, CASE WHEN c.escolaridade='M' THEN 'Ensino Médio' ELSE 'Ensino Fundamental' END as 'escolaridade' FROM matricula a"
+						+" LEFT JOIN funcionario b ON (b.inst_id=a.idInstituicao)"
+						+" LEFT JOIN aluno c ON(a.aluno_idaluno=c.idAluno)"
+						+"LEFT JOIN pessoa d ON(c.pessoa_id=d.idPessoa)"
+						+" WHERE " 
+						+" b.pessoa_id = ?" 
+						+" AND" 
+						+" a.situacao = 'Pendente'"
+						+" ORDER BY a.dataMatri ASC";
+			
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, idUsu);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				MatriculaModel md = new MatriculaModel();
+							   md.setIdMatricula(rs.getInt("idMatricula"));
+							   md.getPessoa().setIdPessoa(rs.getInt("idPessoa"));
+							   md.getPessoa().setNome(rs.getString("nome"));
+							   md.setDtMat(rs.getDate("dataMatri"));
+							   md.getAm().setAnoEscolar(rs.getInt("anoEscolar"));
+							   md.getAm().setEscolaridade(rs.getString("escolaridade"));
+				mdls.add(md);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mdls;
+	}
+	
 	/**
 	 * Obtém todos os dados de Matrícula para um Aluno específico
 	 * 
@@ -50,18 +85,13 @@ public class MatriculaDao extends Conexao {
 	public int inserirMatricula(MatriculaModel matricula) {
 		int matr = 0;
 		try {
-			//SQL de insert
 			String sql = "INSERT INTO matricula (situacao,dataMatri,dataValida,funci_idfunci,aluno_idaluno,idInstituicao) VALUES (?,?,?,?,?,?)";
 			
-			//Obt�m conex�o
 			Connection con = this.getConexao();
-					   
-			//Prepara sql para receber os par�metros
+			
 			PreparedStatement sth = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			//Reseta os par�metros para receber novos valores
-			sth.clearParameters();
-			//Atribui os valores aos par�metros da sql				  
-			sth.setString(1, matricula.getSituacao());
+							  sth.clearParameters();
+							  sth.setString(1, matricula.getSituacao());
 			
 			Date dtMatr = new java.sql.Date(matricula.getDtMat().getTime());
 			Date dtVali = null;
@@ -83,24 +113,20 @@ public class MatriculaDao extends Conexao {
 			sth.setInt(5, matricula.getIdAluno());
 			sth.setInt(6, matricula.getIdInstituicao());
 			
-			//Executa o insert e retorna o total de linhas inseridas no banco
-			int ttMatr = sth.executeUpdate();
+			sth.executeUpdate();
 			
-			//Obt�m a chave prim�ria (ID) gerada pelo banco para o aluno inserido
 			ResultSet rs = sth.getGeneratedKeys();
 			while(rs.next()) {
 				matr = rs.getInt(1);
 			}
 			rs.close();
 			sth.close();
-			
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
 			this.fechaConexao();
 		}
-		
-		//Retorna o id do registro inserido em aluno
+
 		return matr;
 	}
 	

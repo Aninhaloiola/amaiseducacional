@@ -1,7 +1,10 @@
 package br.com.maiseducacional.model;
 
-public class EscolaModel {
+import java.io.Serializable;
 
+public class EscolaModel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int idInst = 0;
 	private String nome = "";
 	private String cnpj = "";

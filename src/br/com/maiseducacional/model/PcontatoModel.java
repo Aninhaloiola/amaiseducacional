@@ -1,10 +1,10 @@
 package br.com.maiseducacional.model;
 
-/**
- * Model da tabela de contato de pessoa
- */
-public class PcontatoModel {
+import java.io.Serializable;
 
+public class PcontatoModel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int idContato = 0;
 	private String telefone = "";
 	private String celular = "";

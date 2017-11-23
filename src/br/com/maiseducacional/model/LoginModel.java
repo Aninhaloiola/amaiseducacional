@@ -1,7 +1,10 @@
 package br.com.maiseducacional.model;
 
-public class LoginModel {
+import java.io.Serializable;
+
+public class LoginModel implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private int idUsu = 0;
 	private String usuario = "";
 	private String senha = "";

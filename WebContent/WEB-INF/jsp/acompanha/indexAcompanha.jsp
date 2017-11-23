@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,20 +13,40 @@
 <div class="container-fluid">
 	<div class="row dark-8 txt-light">
 		<div class="col-10">
-			<h4>Acompanhamento de Matrícula</h4>
+		<c:choose>
+			<c:when test="${acao eq 'acompanhar'}">
+				<h4>Acompanhamento de Matrícula</h4>
+			</c:when>
+			<c:when test="${acao eq 'detalhar'}">
+				<h4>Detalhamento de Solicitação de Matrícula</h4>
+			</c:when>
+		</c:choose>
 		</div>
 		<div class="col-2 btn-top">
+		<c:choose>
+			<c:when test="${acao eq 'acompanhar'}">
 			<a class="btn btn-danger" href="<%=request.getContextPath()%>/login?acao=sair" title="Sair">
 				<i class="fa fa-sign-out" aria-hidden="true"></i> Sair
 			</a>
+			</c:when>
+			<c:when test="${acao eq 'detalhar'}">
+			<a class="btn btn-warning" href="<%=request.getContextPath()%>/validacao" title="Voltar">
+				<i class="fa fa-chevron-left" aria-hidden="true"></i> Voltar
+			</a>	
+			</c:when>
+		</c:choose>
 		</div>
 	</div>
 </div>
 <div class="container-fluid">
 	<div class="row padding-2">
-		<div class="col-12 col-md-6">
-			<h2><i class="fa fa-address-card" aria-hidden="true"></i> Acompanhe sua solicitação</h2>
-		</div>
+		<c:choose>
+			<c:when test="${acao eq 'acompanhar'}">
+			<div class="col-12 col-md-6">
+				<h2><i class="fa fa-address-card" aria-hidden="true"></i> Acompanhe sua solicitação</h2>
+			</div>
+			</c:when>
+		</c:choose>
 		<div class="col-12 col-md-6">
 			<i class="fa fa-info-circle" aria-hidden="true"></i> <b>Status:</b> <span class="badge badge-danger">${matricula.situacao}</span>
 		</div>

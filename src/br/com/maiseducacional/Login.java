@@ -40,6 +40,9 @@ public class Login extends HttpServlet {
 			loginGer.destroySession();
 		}
 		
+		String tipo = request.getParameter("tipo");
+			   request.setAttribute("tipo", tipo);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 						  rd.forward(request, response);
 	}
@@ -52,13 +55,20 @@ public class Login extends HttpServlet {
 		
 		Requests rq = new Requests();
 				 rq.getParameters(request);
+		
+		String tipo = rq.getStrParam("tipo");
+		String usu = rq.getStrParam("inpt-usu");
+		String senha = rq.getStrParam("inpt-senha");
+		String matricula = rq.getStrParam("inpt-matr");
 				 
 		LoginView lv = new LoginView();
-			  int idUsu = lv.verificarLogin(rq.getStrParam("inpt-usu"), rq.getStrParam("inpt-senha"));
+			  int idUsu = lv.verificarLogin(usu, senha, matricula);
 		
+		String pagina = ("validar".equals(tipo)) ? "validacao" : "acompanhamento";
+			  
 		if (idUsu > 0) {
 			loginGer.initSession(""+idUsu);
-			response.sendRedirect("/maiseducacional/acompanhamento");
+			response.sendRedirect("/maiseducacional/"+pagina);
 		} else {
 			request.setAttribute("msg", "Usuário não está logado!");
 			request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response); //Faz melhor se for gambiarra
