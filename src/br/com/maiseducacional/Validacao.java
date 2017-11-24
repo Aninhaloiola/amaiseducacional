@@ -41,7 +41,9 @@ public class Validacao extends HttpServlet {
 		
 		ValidacaoView av = new ValidacaoView();
 		
-		String mtr = req.getStrParam("mtr");
+		String msg = "";
+		
+		int mtr = req.getIntParam("mtr");
 		int pid = req.getIntParam("p");
 		String acao = req.getStrParam("acao");
 		
@@ -57,18 +59,22 @@ public class Validacao extends HttpServlet {
 			request.setAttribute("acao", "detalhar");
 			
 		} else if ("validar".equals(acao)) {
-			
+			int valida = av.validarMatricula(mtr, loginGer.getUsuId());
+			msg = (valida > 0) ? "Matricula validada!" : "Falha ao validar matricula!";
 			
 		} else if ("cancelar".equals(acao)) {
-			
+			int cancelada = av.cancelarMatricula(mtr, loginGer.getUsuId());
+			msg = (cancelada > 0) ? "Matricula Cancelada!" : "Falha ao Cancelar matricula!";
 			
 		} else {
 			Map<String,Object> lsmtr = av.getMatriculaListaByUsu(loginGer.getUsuId());
 			request.setAttribute("pendls", lsmtr.get("pendentes"));
+			request.setAttribute("validals", lsmtr.get("validadas"));
+			request.setAttribute("cancelals", lsmtr.get("canceladas"));
 		}
 		
+		request.setAttribute("msg", msg);
 		String pagina = ("detalhar".equals(acao)) ? "acompanha/indexAcompanha" : "validacao/indexValida";
-		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/"+pagina+".jsp");
 						  rd.forward(request, response);
 	}

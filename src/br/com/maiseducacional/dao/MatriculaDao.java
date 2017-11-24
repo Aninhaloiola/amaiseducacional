@@ -17,23 +17,24 @@ import br.com.maiseducacional.model.MatriculaModel;
  */
 public class MatriculaDao extends Conexao {
 
-	public ArrayList<MatriculaModel> getMatriculaPendenteListaByUsu(int idUsu) {
+	public ArrayList<MatriculaModel> getMatriculaListaByUsu(int idUsu, String situacao) {
 		ArrayList<MatriculaModel> mdls = new ArrayList<MatriculaModel>();
 		try {
-			String sql = "SELECT d.idPessoa,a.idMatricula,d.nome,a.dataMatri,c.anoEscolar, CASE WHEN c.escolaridade='M' THEN 'Ensino Médio' ELSE 'Ensino Fundamental' END as 'escolaridade' FROM matricula a"
+			String sql = "SELECT d.idPessoa,a.idMatricula,d.nome,a.dataMatri,a.dataValida,c.anoEscolar, CASE WHEN c.escolaridade='M' THEN 'Ensino Médio' ELSE 'Ensino Fundamental' END as 'escolaridade' FROM matricula a"
 						+" LEFT JOIN funcionario b ON (b.inst_id=a.idInstituicao)"
 						+" LEFT JOIN aluno c ON(a.aluno_idaluno=c.idAluno)"
 						+"LEFT JOIN pessoa d ON(c.pessoa_id=d.idPessoa)"
 						+" WHERE " 
 						+" b.pessoa_id = ?" 
 						+" AND" 
-						+" a.situacao = 'Pendente'"
+						+" a.situacao = ?"
 						+" ORDER BY a.dataMatri ASC";
 			
 			Connection conn = this.getConexao();
 			PreparedStatement ps = conn.prepareStatement(sql);
 							  ps.clearParameters();
 							  ps.setInt(1, idUsu);
+							  ps.setString(2, situacao);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				MatriculaModel md = new MatriculaModel();
@@ -41,6 +42,7 @@ public class MatriculaDao extends Conexao {
 							   md.getPessoa().setIdPessoa(rs.getInt("idPessoa"));
 							   md.getPessoa().setNome(rs.getString("nome"));
 							   md.setDtMat(rs.getDate("dataMatri"));
+							   md.setDtValida(rs.getDate("dataValida"));
 							   md.getAm().setAnoEscolar(rs.getInt("anoEscolar"));
 							   md.getAm().setEscolaridade(rs.getString("escolaridade"));
 				mdls.add(md);
@@ -78,6 +80,75 @@ public class MatriculaDao extends Conexao {
 		return md;
 	}
 	
+	public int validarMatricula(int idMtr, int pessoaId) {
+		int validadas = 0;
+		try {
+			if (!this.funciPodeValidar(idMtr, pessoaId)) {
+				return validadas;
+			}
+			
+			String sql = "UPDATE matricula SET situacao='Validada', dataValida=CURDATE() WHERE idMatricula = ? LIMIT 1";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, idMtr);
+			validadas = ps.executeUpdate();
+			ps.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return validadas;
+	}
+	
+	public int cancelarMatricula(int idMtr, int pessoaId) {
+		int cancelada = 0;
+		try {
+			if (!this.funciPodeValidar(idMtr, pessoaId)) {
+				return cancelada;
+			}
+			
+			String sql = "UPDATE matricula SET situacao='Cancelada', dataValida=CURDATE() WHERE idMatricula = ? LIMIT 1";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, idMtr);
+			cancelada = ps.executeUpdate();
+			ps.close();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return cancelada;
+	}
+	
+	public boolean funciPodeValidar(int idMtr, int pid) {
+		boolean pode = false;
+		try {
+			String sql = "SELECT b.idFunci as 'ana' FROM pessoa a"
+						+" INNER JOIN funcionario b ON(b.pessoa_id=a.idPessoa)" 
+						+" WHERE" 
+						+" a.idPessoa = ?" 
+						+" AND" 
+						+" b.inst_id = (SELECT c.idInstituicao FROM matricula c WHERE c.idMatricula = ?)";
+			Connection conn = this.getConexao();
+			PreparedStatement ps = conn.prepareStatement(sql);
+							  ps.clearParameters();
+							  ps.setInt(1, pid);
+							  ps.setInt(2, idMtr);
+			ResultSet rs = ps.executeQuery();
+			int idFunci = 0;
+			while(rs.next()) {
+				idFunci = rs.getInt("ana");
+			}
+			rs.close();
+			ps.close();
+			
+			pode = (idFunci < 1) ? false : true;
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return pode;
+	}
 	
 	/**
 	 * Insere um novo registro em Aluno

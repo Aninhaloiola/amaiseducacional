@@ -5,6 +5,10 @@ body {
 	color: #000;
 }
 
+.header a {
+	color: #FFF;
+}
+
 table > thead > tr > th {
 	text-align: center;
 }

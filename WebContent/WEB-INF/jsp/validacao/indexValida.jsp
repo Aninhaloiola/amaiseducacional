@@ -12,8 +12,8 @@
 <body>
 <div class="container-fluid">
 	<div class="row dark-8 txt-light">
-		<div class="col-10">
-			<h4>Validação de Matrícula</h4>
+		<div class="col-10 header">
+			<h4><a href="<%=request.getContextPath()%>/validacao">Validação de Matrícula</a></h4>
 		</div>
 		<div class="col-2 btn-top">
 			<a class="btn btn-danger" href="<%=request.getContextPath()%>/login?acao=sair" title="Sair">
@@ -30,6 +30,13 @@
 <!-- 	</div> -->
 <!-- </div> -->
 <div class="container-fluid">
+	<c:if test="${not empty msg}">
+	<div class="row">
+		<div class="col-12">
+			<div class="alert alert-warning">${msg}</div>
+		</div>
+	</div>
+	</c:if>
 	<ul class="nav nav-tabs" role="tablist">
 	    <li class="nav-item">
 	        <a class="nav-link active" data-toggle="tab" href="#pendentes" role="tab">
@@ -39,6 +46,11 @@
 	    <li class="nav-item">
 	        <a class="nav-link" data-toggle="tab" href="#validadas" role="tab">
 	        	<i class="fa fa-check" aria-hidden="true"></i> <b>Validadas</b>
+	        </a>
+	    </li>
+	    <li class="nav-item">
+	        <a class="nav-link" data-toggle="tab" href="#canceladas" role="tab">
+	        	<i class="fa fa-window-close" aria-hidden="true"></i> <b>Canceladas</b>
 	        </a>
 	    </li>
 	</ul>
@@ -75,7 +87,65 @@
 			</table>
 	    </div>
 	    <div class="tab-pane" id="validadas" role="tabpanel">
-	    	Profile
+	    	<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>Matricula</th>
+						<th>Data Solicitação</th>
+						<th>Data Validação</th>
+						<th>Aluno</th>
+						<th>Escolaridade</th>
+						<th>Ano</th>
+						<th>Ação</th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${validals}" var="mtr">
+					<tr>
+						<td>${mtr.idMatricula}</td>
+						<td>${mtr.dtMat}</td>
+						<td>${mtr.dtValida}</td>
+						<td>${mtr.pessoa.nome}</td>
+						<td>${mtr.am.escolaridade}</td>
+						<td>${mtr.am.anoEscolar}</td>
+						<td style="width: 25%; text-align: right;">
+							<a href="<%=request.getContextPath() %>/validacao?acao=detalhar&mtr=${mtr.idMatricula}&p=${mtr.pessoa.idPessoa}" class="btn btn-info" title="Detalhar">Detalhar</a>
+							<a href="<%=request.getContextPath() %>/validacao?acao=cancelar&mtr=${mtr.idMatricula}&p=${mtr.pessoa.idPessoa}" class="btn btn-danger" title="Cancelar">Cancelar</a>
+						</td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+	    </div>
+	    <div class="tab-pane" id="canceladas" role="tabpanel">
+	    	<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>Matricula</th>
+						<th>Data Solicitação</th>
+						<th>Data Cancelamento</th>
+						<th>Aluno</th>
+						<th>Escolaridade</th>
+						<th>Ano</th>
+						<th>Ação</th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${cancelals}" var="mtr">
+					<tr>
+						<td>${mtr.idMatricula}</td>
+						<td>${mtr.dtMat}</td>
+						<td>${mtr.dtValida}</td>
+						<td>${mtr.pessoa.nome}</td>
+						<td>${mtr.am.escolaridade}</td>
+						<td>${mtr.am.anoEscolar}</td>
+						<td style="width: 25%; text-align: right;">
+							<a href="<%=request.getContextPath() %>/validacao?acao=detalhar&mtr=${mtr.idMatricula}&p=${mtr.pessoa.idPessoa}" class="btn btn-info" title="Detalhar">Detalhar</a>
+						</td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
 	    </div>
 	</div>
 </div>
