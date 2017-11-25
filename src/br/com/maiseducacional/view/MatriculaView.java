@@ -94,8 +94,14 @@ public class MatriculaView {
 		String celular = request.getParameter("inpt-celular");
 		
 		String escolaridade = request.getParameter("inpt-escl");
-		String anoEscolar = request.getParameter("inpt-escl-ano");
+		String aEscolar = request.getParameter("inpt-escl-ano");
+		int anoEscolar = ("".equals(aEscolar) || aEscolar==null) ? 0 : Integer.parseInt(aEscolar);
+		
 		String instituicao = request.getParameter("inpt-inst");
+		if ("".equals(instituicao) || instituicao==null){
+			return "Selecione uma instituição, obrigado!";
+		}
+		int idIns = Integer.parseInt(instituicao);
 		
 		String usuario = request.getParameter("inpt-usu");
 		String senha = request.getParameter("inpt-senha");
@@ -142,6 +148,7 @@ public class MatriculaView {
 				   aluno.setNomePai(nPai);
 				   aluno.setNomeMae(nMae);
 				   aluno.setEscolaridade(escolaridade);
+				   aluno.setAnoEscolar(anoEscolar);
 				   aluno.setPessoaId(idPessoa);
 		AlunoDao ad = new AlunoDao();
 		idAluno = ad.inserirAluno(aluno);
@@ -156,7 +163,7 @@ public class MatriculaView {
 						   mtr.setDtMat(new Date());
 						   mtr.setDtValida(null);
 						   mtr.setSituacao("Pendente");
-						   mtr.setIdInstituicao(2);
+						   mtr.setIdInstituicao(idIns);
 			MatriculaDao md = new MatriculaDao();
 			matricula = md.inserirMatricula(mtr);
 		}

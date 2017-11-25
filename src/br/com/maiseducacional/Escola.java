@@ -50,10 +50,7 @@ public class Escola extends HttpServlet {
 		
 		if ("json".equals(retorno)) {
 			this.jsonRequests(ev.getEscolasJson(), response);
-		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/escola.jsp");
-							  rd.forward(request, response);
-		}
+		} 
 	}
 
 	/**

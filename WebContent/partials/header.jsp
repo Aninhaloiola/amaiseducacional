@@ -21,19 +21,19 @@
 						<i class="fa fa-home"></i> Inicio
 					</a>
 					</c:if>
-					<c:if test="${pagina != 'matricula'}">
+					<c:if test="${pagina=='inicio'}">
 					<a href="#nmatricula" title="Nova Matricula">
 						<i class="fa fa-plus"></i> Nova Matricula
 					</a>
 					</c:if>
 				</li><li>
-					<c:if test="${pagina!='acompanhar' && pagina!='login'}">
+					<c:if test="${pagina=='inicio'}">
 					<a href="#amatricula" title="Acompanhar Matricula">
 						<i class="fa fa-chevron-left"></i> Acompanhar Matricula
 					</a>
 					</c:if>
 				</li><li>
-					<c:if test="${pagina != 'consultaresc'}">
+					<c:if test="${pagina=='inicio'}">
 					<a href="#cescola" title="Consultar Escola">
 						<i class="fa fa-search"></i> Consultar Escola
 					</a>

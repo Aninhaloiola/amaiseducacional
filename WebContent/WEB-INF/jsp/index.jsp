@@ -9,6 +9,9 @@
 	<%@ include file="/partials/headJs.jsp" %>
 </head>
 <body>
+<video playsinline autoplay muted loop poster="<%=request.getContextPath()%>/images/iconEduca.jpg" id="bgvid">
+    <source src="<%=request.getContextPath()%>/images/EasternChristianSchoolHighSchoolCampus.mp4" type="video/mp4">
+</video>
 <%@ include file="/partials/header.jsp" %>
 <div class="container-fluid margin-6">
 	<div id="nmatricula" class="row light-8 padding-4">
@@ -74,7 +77,7 @@
 	<div id="cescola" class="row dark-8">
 		<div class="col-12" style="text-align: center;">
 			<div class="btn-bar">
-				<a href="" class="btn btn-outline-info btn-lg" title="Consultar Escola">
+				<a href="<%=request.getContextPath()%>/consultarescola" class="btn btn-outline-info btn-lg" title="Consultar Escola">
 					<i class="fa fa-search"></i> Consultar Escola
 				</a>
 			</div>
