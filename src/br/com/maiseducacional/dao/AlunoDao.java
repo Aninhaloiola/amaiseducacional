@@ -79,7 +79,7 @@ public class AlunoDao extends Conexao {
 		int ttAluno = 0;
 		
 		try {
-			String sql = "INSERT INTO aluno (nomePai, nomeMae, escolaridade, pessoa_id) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO aluno (nomePai, nomeMae, escolaridade, anoEscolar, pessoa_id) VALUES (?,?,?,?,?)";
 			
 			Connection con = this.getConexao();
 			PreparedStatement sth = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -88,7 +88,8 @@ public class AlunoDao extends Conexao {
 			sth.setString(1, aluno.getNomePai());
 			sth.setString(2, aluno.getNomeMae());
 			sth.setString(3, aluno.getEscolaridade());
-			sth.setInt(4, aluno.getPessoaId());
+			sth.setInt(4, aluno.getAnoEscolar());
+			sth.setInt(5, aluno.getPessoaId());
 			
 			ttAluno = sth.executeUpdate();
 

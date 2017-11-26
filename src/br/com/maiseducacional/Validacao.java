@@ -66,12 +66,13 @@ public class Validacao extends HttpServlet {
 			int cancelada = av.cancelarMatricula(mtr, loginGer.getUsuId());
 			msg = (cancelada > 0) ? "Matricula Cancelada!" : "Falha ao Cancelar matricula!";
 			
-		} else {
+		}
+		
 			Map<String,Object> lsmtr = av.getMatriculaListaByUsu(loginGer.getUsuId());
 			request.setAttribute("pendls", lsmtr.get("pendentes"));
 			request.setAttribute("validals", lsmtr.get("validadas"));
 			request.setAttribute("cancelals", lsmtr.get("canceladas"));
-		}
+		
 		
 		request.setAttribute("msg", msg);
 		String pagina = ("detalhar".equals(acao)) ? "acompanha/indexAcompanha" : "validacao/indexValida";
